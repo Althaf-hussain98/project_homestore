@@ -1,0 +1,344 @@
+{% extends "headerfooter.html" %}
+    {% block content %}
+
+	<!-- banner-2 -->
+	
+
+	</div>
+	<!-- //banner-2 -->
+	<!-- page -->
+	<div class="services-breadcrumb">
+		<div class="agile_inner_breadcrumb">
+			<div class="container">
+				<ul class="w3_short">
+					<li>
+						<a href="index.html">Home</a>
+						<i>|</i>
+					</li>
+					<li> ORDERS</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- //page -->
+	<!-- checkout page -->
+	<div class="privacy py-sm-5 py-4">
+		<div class="container py-xl-4 py-lg-2">
+			<!-- tittle heading -->
+			<h3 class="tittle-w3l text-center mb-lg-5 mb-sm-4 mb-3">
+				<span>o</span>rders
+			</h3>
+			<!-- //tittle heading -->
+			
+			<div class="checkout-right">
+				<h4 class="mb-sm-4 mb-3"> Orders from customers
+					<span></span>
+				</h4>
+				<div class="table-responsive">
+					<table class="timetable_sub">
+						<thead>
+							<tr>
+								<th>SL No.</th>
+								<th>Customer</th>
+								<th>Address</th>
+
+
+
+								<th>Product</th>
+								
+								<th>Product Name</th>
+
+								<th>Order status</th>
+								<th>Payment</th>
+								<th>Update</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for x in datakey %}
+							<tr class="rem1">
+								<td class="invert">{{forloop.counter}}</td>
+								<td class="invert"> {{x.userid.username}}</td>
+								<td class="invert"> {{x.deliver_address}}</td>
+
+								<td class="invert-image">
+									<a href="single.html">
+										<img src="{{x.purchasingitem.upload.url}}" alt=" " class="img-responsive">
+									</a>
+									<input type="hidden" name="owner_id" value="{{x.id}}">
+								</td>
+								
+								<td class="invert">{{x.purchasingitem.productname}}</td>
+
+								{% if x.status == "0" %}
+								<td class="invert"> Not confirmed </td>
+                                {% else %}
+								<td class="invert"> {{x.status}}</td>
+								{% endif %}
+
+
+								{% if x.paymwnt == "0" %}
+								<td class="invert"> <h6> Payment Pending </h6></td>
+								{% else %}
+								<td type="hidden" > {{x.paymwnt}}</td>
+								{% endif %}
+								
+
+								<td class="invert">
+
+
+
+									{% if x.status == "confirmed" %}
+
+
+									<button  onclick="document.location='/approveorder/?eid={{x.id}}'" class="submit check_out btn"> Approve order</button>
+
+									<!-- <a href="/approveorder/?eid={{x.id}}"> <h6> Aprove </h6></a> -->
+									{% elif x.status == "Dispatched" %}
+
+									     <!-- <a href="/oredershiped/?eid={{x.id}}"> <h6>  </h6></a> -->
+									     <button  onclick="document.location='/oredershiped/?eid={{x.id}}'" class="submit check_out btn">Update to Order Shipped</button>
+									{% elif x.status == "Shipped" %}     
+									
+										 <a href="/orederdelivered/?eid={{x.id}}"> <h6>Mark as Delivered </h6></a>
+
+										 <button  onclick="document.location='/orederdelivered/?eid={{x.id}}'" class="submit check_out btn"> Mark as Delivered  </button>
+
+								    {% elif x.status == "return requsted" %}
+
+								         <button  onclick="document.location='/approvereturn/?eid={{x.id}}'" class="submit check_out btn">  Approve return  </button>
+
+<!-- 
+								         <a href="/approvereturn/?eid={{x.id}}"> <h6>Approve return </h6></a> -->
+
+
+
+									{% else %}
+									<h6>Awaiting for payment or already delivered</h6>
+								    
+								    {% endif %}
+
+								</td>
+							</tr>
+
+
+							{% endfor %}
+							
+							
+							
+							
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			
+	
+	<!-- //checkout page -->
+
+	<!-- middle section -->
+	<div class="join-w3l1 py-sm-5 py-4">
+		
+			
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- middle section -->
+
+	<!-- footer -->
+
+
+	{% endblock %}
+	
+	<!-- //footer -->
+	<!-- copyright -->
+	<div class="copy-right py-3">
+		<div class="container">
+			<p class="text-center text-white">© 2018 Electro Store. All rights reserved | Design by
+				<a href="http://w3layouts.com"> W3layouts.</a>
+			</p>
+		</div>
+	</div>
+	<!-- //copyright -->
+
+	<!-- js-files -->
+	<!-- jquery -->
+	<script src="js/jquery-2.2.3.min.js"></script>
+	<!-- //jquery -->
+
+	<!-- nav smooth scroll -->
+	<script>
+		$(document).ready(function () {
+			$(".dropdown").hover(
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
+					$(this).toggleClass('open');
+				},
+				function () {
+					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
+					$(this).toggleClass('open');
+				}
+			);
+		});
+	</script>
+	<!-- //nav smooth scroll -->
+
+	<!-- popup modal (for location)-->
+	<script src="js/jquery.magnific-popup.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('.popup-with-zoom-anim').magnificPopup({
+				type: 'inline',
+				fixedContentPos: false,
+				fixedBgPos: true,
+				overflowY: 'auto',
+				closeBtnInside: true,
+				preloader: false,
+				midClick: true,
+				removalDelay: 300,
+				mainClass: 'my-mfp-zoom-in'
+			});
+
+		});
+	</script>
+	<!-- //popup modal (for location)-->
+
+	<!-- cart-js -->
+	<script src="js/minicart.js"></script>
+	<script>
+		paypals.minicarts.render(); //use only unique class names other than paypals.minicarts.Also Replace same class name in css and minicart.min.js
+
+		paypals.minicarts.cart.on('checkout', function (evt) {
+			var items = this.items(),
+				len = items.length,
+				total = 0,
+				i;
+
+			// Count the number of each item in the cart
+			for (i = 0; i < len; i++) {
+				total += items[i].get('quantity');
+			}
+
+			if (total < 3) {
+				alert('The minimum order quantity is 3. Please add more to your shopping cart before checking out');
+				evt.preventDefault();
+			}
+		});
+	</script>
+	<!-- //cart-js -->
+
+	<!-- password-script -->
+	<script>
+		window.onload = function () {
+			document.getElementById("password1").onchange = validatePassword;
+			document.getElementById("password2").onchange = validatePassword;
+		}
+
+		function validatePassword() {
+			var pass2 = document.getElementById("password2").value;
+			var pass1 = document.getElementById("password1").value;
+			if (pass1 != pass2)
+				document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+			else
+				document.getElementById("password2").setCustomValidity('');
+			//empty string means no validation error
+		}
+	</script>
+	<!-- //password-script -->
+
+	<!-- quantity -->
+	<script>
+		$('.value-plus').on('click', function () {
+			var divUpd = $(this).parent().find('.value'),
+				newVal = parseInt(divUpd.text(), 10) + 1;
+			divUpd.text(newVal);
+		});
+
+		$('.value-minus').on('click', function () {
+			var divUpd = $(this).parent().find('.value'),
+				newVal = parseInt(divUpd.text(), 10) - 1;
+			if (newVal >= 1) divUpd.text(newVal);
+		});
+	</script>
+	<!--quantity-->
+	<script>
+		$(document).ready(function (c) {
+			$('.close1').on('click', function (c) {
+				$('.rem1').fadeOut('slow', function (c) {
+					$('.rem1').remove();
+				});
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function (c) {
+			$('.close2').on('click', function (c) {
+				$('.rem2').fadeOut('slow', function (c) {
+					$('.rem2').remove();
+				});
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function (c) {
+			$('.close3').on('click', function (c) {
+				$('.rem3').fadeOut('slow', function (c) {
+					$('.rem3').remove();
+				});
+			});
+		});
+	</script>
+	<!-- //quantity -->
+
+	<!-- smoothscroll -->
+	<script src="js/SmoothScroll.min.js"></script>
+	<!-- //smoothscroll -->
+
+	<!-- start-smooth-scrolling -->
+	<script src="js/move-top.js"></script>
+	<script src="js/easing.js"></script>
+	<script>
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+
+				$('html,body').animate({
+					scrollTop: $(this.hash).offset().top
+				}, 1000);
+			});
+		});
+	</script>
+	<!-- //end-smooth-scrolling -->
+
+	<!-- smooth-scrolling-of-move-up -->
+	<script>
+		$(document).ready(function () {
+			/*
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+			};
+			*/
+			$().UItoTop({
+				easingType: 'easeOutQuart'
+			});
+
+		});
+	</script>
+	<!-- //smooth-scrolling-of-move-up -->
+
+	<!-- for bootstrap working -->
+	<script src="js/bootstrap.js"></script>
+	<!-- //for bootstrap working -->
+	<!-- //js-files -->
+
+</body>
+
+</html>
